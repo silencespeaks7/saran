@@ -19,7 +19,7 @@ from tg_bot.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from tg_bot.modules.helper_funcs.msg_types import get_welcome_type
 from tg_bot.modules.helper_funcs.string_handling import (markdown_parser,
                                                          escape_invalid_curly_brackets)
-from SaitamaRobot.modules.log_channel import loggable
+from tg_bot.modules.log_channel import loggable
 
 VALID_WELCOME_FORMATTERS = ['first', 'last', 'fullname', 'username', 'id', 'count', 'chatname', 'mention']
 
