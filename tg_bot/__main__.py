@@ -24,7 +24,7 @@ You can find the list of available commands with /help.
 
 [Kigyō's Repo](https://github.com/Dank-del/EnterpriseALRobot) 
 
-The support group chat is at @Sararprobot
+The update channel @Sararprobot
 """
 
 HELP_STRINGS = """
@@ -52,7 +52,7 @@ And the following:
 """.format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
 
-KIGYO_IMG = "https://telegra.ph/file/cdec177155100460cc8c7.jpg"
+KIGYO_IMG = "https://telegra.ph/file/ab9a089aaec37716c913f.jpg"
 
 DONATE_STRING = """Heya, glad to hear you want to donate!
 Sara is hosted on one of Kaizoku's Servers and doesn't require any donations as of now but \
