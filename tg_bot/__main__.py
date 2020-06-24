@@ -23,7 +23,7 @@ Hi {}, my name is {}! If you have any questions on how to use me, read /help .
 I'm a group manager bot maintained by [This Guy](tg://user?id={}). 
 You can find the list of available commands with /help.
 If you're enjoying using me, and/or would like to help me survive in the wild, hit /donate to help fund/upgrade my VPS!
-[Click here to add me in your groups](https://telegram.me/saraak_bot?startgroup=add)
+[Click here to add me in your groups](https://telegram.me/sararpbot?startgroup=add)
 """
 
 
