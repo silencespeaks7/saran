@@ -1,25 +1,27 @@
 import html
 
-from telegram import Bot, ParseMode, Update
-from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async, CallbackContext
-from typing import Optional, List
+from typing import List
 
-import tldextract
-from natalie_bot import LOGGER, dispatcher, CMD_PREFIX
-from natalie_bot.modules.disable import DisableAbleCommandHandler
-from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
+import telegram.ext as tg
+from telegram import Bot, Update, ParseMode, MessageEntity
+from telegram import TelegramError
+from telegram.error import BadRequest
+from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
-from natalie_bot.modules.helper_funcs.chat_status import user_admin, user_not_admin
-from natalie_bot.modules.sql import urlwhitelist_sql as sql
-from natalie_bot.modules.log_channel import loggable
-from natalie_bot.modules.helper_funcs.misc import split_message
+
+import tg_bot.modules.sql.locks_sql as sql
+from tg_bot import dispatcher, SUDO_USERS, DEV_USERS, LOGGER
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, bot_can_delete, is_bot_admin, connection_status
+from tg_bot.modules.helper_funcs.filters import CustomFilters
+from tg_bot.modules.log_channel import loggable
+from tg_bot.modules.sql import users_sql
 
 
 @run_async
 @user_admin
 @loggable
-def add_whitelist_url(update: Update, context: CallbackContext):
+def add_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
@@ -62,7 +64,7 @@ def add_whitelist_url(update: Update, context: CallbackContext):
 @run_async
 @user_admin
 @loggable
-def rm_whitelist_url(update: Update, context: CallbackContext):
+def rm_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -118,7 +120,7 @@ def rm_whitelist_url(update: Update, context: CallbackContext):
         msg.reply_text("Tell me which domain(s) you would like to remove from the whitelist.")
 
 @run_async
-def get_whitelisted_urls(update: Update, context: CallbackContext):
+def get_whitelisted_urls(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
     chat_name = chat.title or chat.first or chat.username
@@ -142,9 +144,9 @@ def get_whitelisted_urls(update: Update, context: CallbackContext):
             return
         msg.reply_text(text.format(chat_name), parse_mode=ParseMode.HTML)
 
-ADD_URL_WHITELIST_HANDLER = CustomCommandHandler(CMD_PREFIX, "addwhitelist", add_whitelist_url, filters=Filters.group)
-RM_WHITELIST_URL_HANDLER = CustomCommandHandler(CMD_PREFIX, ["unwhitelist", "rmwhitelist"], rm_whitelist_url, filters=Filters.group)
-GET_WHITELISTED_URLS = DisableAbleCommandHandler(CMD_PREFIX, "whitelist", get_whitelisted_urls, filters=Filters.group, admin_ok=True)
+ADD_URL_WHITELIST_HANDLER = CustomCommandHandler("addwhitelist", add_whitelist_url, filters=Filters.group)
+RM_WHITELIST_URL_HANDLER = CustomCommandHandler(["unwhitelist", "rmwhitelist"], rm_whitelist_url, filters=Filters.group)
+GET_WHITELISTED_URLS = DisableAbleCommandHandler("whitelist", get_whitelisted_urls, filters=Filters.group, admin_ok=True)
 
 
 __mod_name__ = "Domain whitelists"
