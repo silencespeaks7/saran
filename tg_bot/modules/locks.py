@@ -39,7 +39,7 @@ GIF = Filters.document & CustomFilters.mime_type("video/mp4")
 OTHER = Filters.game | Filters.sticker | GIF
 MEDIA = Filters.audio | Filters.document | Filters.video | Filters.video_note | Filters.voice \
         | Filters.photo | Filters.document.mime_type("application/vnd.android.package-archive")
-MESSAGES = Filters.text | Filters.contact | Filters.poll | Filters.location | Filters.venue | Filters.command | MEDIA | OTHER
+MESSAGES = Filters.text | Filters.contact | Filters.location | Filters.venue | MEDIA | OTHER
 PREVIEWS = Filters.entity("url")
 
 RESTRICTION_TYPES = {'messages': MESSAGES,
