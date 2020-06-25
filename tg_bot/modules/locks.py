@@ -51,43 +51,33 @@ RESTRICTION_TYPES = {'messages': MESSAGES,
 PERM_GROUP = 1
 REST_GROUP = 2
 
-
-class CommandHandler(tg.CommmamdHandler):
+class CustomCommandHandler(tg.CommandHandler):
     def __init__(self, command, callback, **kwargs):
         super().__init__(command, callback, **kwargs)
 
-    def check_update(self, update: Update):
-        if isinstance(update, Update) and update.effective_message:
-            message = update.effective_message
-
-            if message.text:
-                sql_result = (
-                    sql.is_restr_locked(update.effective_chat.id, 'messages') and not is_user_admin(update.effective_chat,
-                                                                                                    update.effective_user.id))
-                text_list = message.text.split()
-                if text_list[0].split("@")[0].lower() in self.command and len(text_list[0].split("@")) > 1 and text_list[0].split("@")[1] == message.bot.username:
-                    filter_result = self.filters(update)
-                    if filter_result:
-                        return text_list[1:], filter_result and not sql_result
-                    else:
-                        return False and not sql_result
-                else:
-                    if text_list[0].lower() not in self.command:
-                        return None
-                    filter_result = self.filters(update)
-                    if filter_result:
-                        return text_list[1:], filter_result and not sql_result
-                    else:
-                        return False and not sql_result
-    
-    def collect_additional_context(self, context, update, dispatcher, check_result):
-        if check_result != True and check_result != False and check_result is not None:
-            context.args = check_result[0]
-            if isinstance(check_result[1], dict):
-                context.update(check_result[1])
+    def check_update(self, update):
+        return super().check_update(update) and not (
+                sql.is_restr_locked(update.effective_chat.id, 'messages') and not is_user_admin(update.effective_chat,
+                                                                                                update.effective_user.id))
 
 
-tg.CommandHandler = CommandHandler
+tg.CommandHandler = CustomCommandHandler
+
+
+# NOT ASYNC
+def restr_members(bot, chat_id, members, messages=False, media=False, other=False, previews=False):
+    for mem in members:
+        if mem.user in SUDO_USERS or mem.user in DEV_USERS:
+            pass
+        try:
+            bot.restrict_chat_member(chat_id, mem.user,
+                                     can_send_messages=messages,
+                                     can_send_media_messages=media,
+                                     can_send_other_messages=other,
+                                     can_add_web_page_previews=previews)
+        except TelegramError:
+            pass
+
 
 
 # NOT ASYNC
