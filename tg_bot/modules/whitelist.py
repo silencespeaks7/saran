@@ -144,8 +144,8 @@ def get_whitelisted_urls(update: Update):
             return
         msg.reply_text(text.format(chat_name), parse_mode=ParseMode.HTML)
 
-ADD_URL_WHITELIST_HANDLER = CustomCommandHandler("addwhitelist", add_whitelist_url, filters=Filters.group)
-RM_WHITELIST_URL_HANDLER = CustomCommandHandler(["unwhitelist", "rmwhitelist"], rm_whitelist_url, filters=Filters.group)
+ADD_URL_WHITELIST_HANDLER = CommandHandler("addwhitelist", add_whitelist_url, filters=Filters.group)
+RM_WHITELIST_URL_HANDLER = CommandHandler(["unwhitelist", "rmwhitelist"], rm_whitelist_url, filters=Filters.group)
 GET_WHITELISTED_URLS = DisableAbleCommandHandler("whitelist", get_whitelisted_urls, filters=Filters.group, admin_ok=True)
 
 
