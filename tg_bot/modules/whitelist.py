@@ -6,7 +6,7 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from typing import Optional, List
 
 
-from tg_bot import LOGGER, dispatcher, CMD_PREFIX
+from tg_bot import LOGGER, dispatcher
 from tg_bot.modules.disable import DisableAbleCommandHandler
 from tg_bot.modules.helper_funcs.handlers import CustomCommandHandler
 from telegram.utils.helpers import mention_html
