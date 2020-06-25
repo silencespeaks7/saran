@@ -1,25 +1,25 @@
+from datetime import datetime
 from functools import wraps
-from typing import Optional
 
-from natalie_bot.modules.helper_funcs.misc import is_module_loaded
+from tg_bot.modules.helper_funcs.misc import is_module_loaded
 
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 if is_module_loaded(FILENAME):
-    from telegram import Bot, Update, ParseMode, Message, Chat
+    from telegram import Bot, Update, ParseMode
     from telegram.error import BadRequest, Unauthorized
-    from telegram.ext import CommandHandler, run_async, CallbackContext
+    from telegram.ext import CommandHandler, run_async
     from telegram.utils.helpers import escape_markdown
 
-    from natalie_bot import dispatcher, LOGGER, CMD_PREFIX
-    from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
-    from natalie_bot.modules.helper_funcs.chat_status import user_admin
-    from natalie_bot.modules.sql import log_channel_sql as sql
+    from tg_bot import dispatcher, LOGGER, GBAN_LOGS
+    from tg_bot.modules.helper_funcs.chat_status import user_admin
+    from tg_bot.modules.sql import log_channel_sql as sql
+
 
 
     def loggable(func):
         @wraps(func)
-        def log_action(update: Update, context: CallbackContext, *args, **kwargs):
+        def log_action(update: Update,  *args, **kwargs):
             result = func(update, context, *args, **kwargs)
             chat = update.effective_chat  # type: Optional[Chat]
             message = update.effective_message  # type: Optional[Message]
@@ -58,7 +58,7 @@ if is_module_loaded(FILENAME):
 
     @run_async
     @user_admin
-    def logging(update: Update, context: CallbackContext):
+    def logging(update: Update):
         message = update.effective_message  # type: Optional[Message]
         chat = update.effective_chat  # type: Optional[Chat]
 
@@ -76,7 +76,7 @@ if is_module_loaded(FILENAME):
 
     @run_async
     @user_admin
-    def setlog(update: Update, context: CallbackContext):
+    def setlog(update: Update):
         message = update.effective_message  # type: Optional[Message]
         chat = update.effective_chat  # type: Optional[Chat]
         if chat.type == chat.CHANNEL:
@@ -113,7 +113,7 @@ if is_module_loaded(FILENAME):
 
     @run_async
     @user_admin
-    def unsetlog(update: Update, context: CallbackContext):
+    def unsetlog(update: Update):
         message = update.effective_message  # type: Optional[Message]
         chat = update.effective_chat  # type: Optional[Chat]
 
@@ -163,9 +163,9 @@ Setting the log channel is done by:
 
     __mod_name__ = "Log Channels"
 
-    LOG_HANDLER = CustomCommandHandler(CMD_PREFIX, "logchannel", logging)
-    SET_LOG_HANDLER = CustomCommandHandler(CMD_PREFIX, "setlog", setlog)
-    UNSET_LOG_HANDLER = CustomCommandHandler(CMD_PREFIX, "unsetlog", unsetlog)
+    LOG_HANDLER = CommandHandler("logchannel", logging)
+    SET_LOG_HANDLER = CommandHandler("setlog", setlog)
+    UNSET_LOG_HANDLER = CommandHandler("unsetlog", unsetlog)
 
     dispatcher.add_handler(LOG_HANDLER)
     dispatcher.add_handler(SET_LOG_HANDLER)
