@@ -22,7 +22,7 @@ from tg_bot.modules.log_channel import loggable
 from tg_bot.modules.sql import users_sql
 
 
-ad = AlphabetDetector()
+
 
 LOCK_PERMISSIONS = ChatPermissions(can_send_messages=False)
 
