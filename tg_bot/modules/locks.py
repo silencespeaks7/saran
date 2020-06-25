@@ -18,7 +18,7 @@ from tg_bot.modules.log_channel import loggable
 from tg_bot.modules.sql import users_sql
 
 LOCK_TYPES = {'sticker': Filters.sticker,
-              'animatedsticker': CustomFilters.animated_sticker,
+              'animatedsticker': Filters.animated_sticker,
               'audio': Filters.audio,
               'poll': Filters.poll,
               'voice': Filters.voice,
