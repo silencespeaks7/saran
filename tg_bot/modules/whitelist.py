@@ -2,7 +2,7 @@ import html
 
 from telegram import Bot, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async, CallbackContext
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from typing import Optional, List
 
 import tldextract
