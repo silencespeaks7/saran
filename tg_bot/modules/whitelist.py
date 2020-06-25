@@ -62,7 +62,7 @@ def add_whitelist_url(update: Update):
 @run_async
 @user_admin
 @loggable
-def rm_whitelist_url(update: Update, context: CallbackContext):
+def rm_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
