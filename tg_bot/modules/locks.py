@@ -19,13 +19,10 @@ from tg_bot.modules.sql import users_sql
 
 LOCK_TYPES = {'sticker': Filters.sticker,
               'audio': Filters.audio,
-              'poll': Filters.poll,
               'voice': Filters.voice,
               'document': Filters.document,
               'video': Filters.video,
-              'videonote': Filters.video_note,
               'contact': Filters.contact,
-              'command': Filters.command,
               'photo': Filters.photo,
               'gif': Filters.document & CustomFilters.mime_type("video/mp4"),
               'apk': Filters.document.mime_type("application/vnd.android.package-archive"),
@@ -35,7 +32,7 @@ LOCK_TYPES = {'sticker': Filters.sticker,
               'forward': Filters.forwarded,
               'game': Filters.game,
               'location': Filters.location,
-              'rtl': 'rtl',
+             
               }
 
 GIF = Filters.document & CustomFilters.mime_type("video/mp4")
