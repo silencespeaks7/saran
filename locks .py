@@ -9,28 +9,33 @@ from telegram.ext import CommandHandler, MessageHandler, Filters, CallbackContex
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from alphabet_detector import AlphabetDetector
 
-import natalie_bot.modules.sql.locks_sql as sql
-from natalie_bot import dispatcher, SUDO_USERS, LOGGER, CMD_PREFIX
-from natalie_bot.modules.disable import DisableAbleCommandHandler
-from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
-from natalie_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
+
+import tg_bot.modules.sql.locks_sql as sql
+from tg_bot import dispatcher, SUDO_USERS, LOGGER
+
+
+
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.helper_funcs.handlers import CustomCommandHandler
+from tg_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
     bot_can_delete, is_bot_admin
-from natalie_bot.modules.helper_funcs.filters import CustomFilters
-from natalie_bot.modules.log_channel import loggable
-from natalie_bot.modules.sql import users_sql
-from natalie_bot.modules.sql.urlwhitelist_sql import get_whitelisted_urls
+from tg_bot.modules.helper_funcs.filters import CustomFilters
+from tg_bot.modules.log_channel import loggable
+from tg_bot.modules.sql import users_sql
+from tg_bot.modules.sql.urlwhitelist_sql import get_whitelisted_urls
 
-ad = AlphabetDetector()
 
-LOCK_PERMISSIONS = ChatPermissions(can_send_messages=False)
 
-UNLOCK_PERMISSIONS = ChatPermissions(can_send_messages=True,
-                                     can_send_media_messages=True,
-                                     can_send_other_messages=True,
-                                     can_add_web_page_previews=True,
-                                     can_send_polls=True)
+
+
+
+                                   
+                                     
+                                    
+                                     
+                                     
+                                     
 
 LOCK_TYPES = {'sticker': Filters.sticker,
               'animatedsticker': CustomFilters.animated_sticker,
