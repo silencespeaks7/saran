@@ -2,11 +2,11 @@ import html
 
 from telegram import Bot, ParseMode, Update
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, Filters, MessageHandler, run_async, CallbackContext
+from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from typing import Optional, List
 
 import tldextract
-from natalie_bot import LOGGER, dispatcher, CMD_PREFIX
+from natalie_bot import LOGGER, dispatcher
 from natalie_bot.modules.disable import DisableAbleCommandHandler
 from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
 from telegram.utils.helpers import mention_html
@@ -19,7 +19,7 @@ from natalie_bot.modules.helper_funcs.misc import split_message
 @run_async
 @user_admin
 @loggable
-def add_whitelist_url(update: Update, context: CallbackContext):
+def add_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
@@ -62,7 +62,7 @@ def add_whitelist_url(update: Update, context: CallbackContext):
 @run_async
 @user_admin
 @loggable
-def rm_whitelist_url(update: Update, context: CallbackContext):
+def rm_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user # type: Optional[User]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -118,7 +118,7 @@ def rm_whitelist_url(update: Update, context: CallbackContext):
         msg.reply_text("Tell me which domain(s) you would like to remove from the whitelist.")
 
 @run_async
-def get_whitelisted_urls(update: Update, context: CallbackContext):
+def get_whitelisted_urls(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
     chat_name = chat.title or chat.first or chat.username
