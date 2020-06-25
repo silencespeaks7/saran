@@ -1,36 +1,55 @@
-import html, time
+import html
 from typing import Optional, List
 
 import telegram.ext as tg
-from telegram import Message, Chat, Update, Bot, ParseMode, User, MessageEntity, ChatPermissions
+from telegram import Message, Chat, Update, Bot, ParseMode, User, MessageEntity
 from telegram import TelegramError
 from telegram.error import BadRequest
-from telegram.ext import CommandHandler, MessageHandler, Filters, CallbackContext, PrefixHandler
+from telegram.ext import CommandHandler, MessageHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-from alphabet_detector import AlphabetDetector
-
-import natalie_bot.modules.sql.locks_sql as sql
-from natalie_bot import dispatcher, SUDO_USERS, LOGGER, CMD_PREFIX
-from natalie_bot.modules.disable import DisableAbleCommandHandler
-from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
-from natalie_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
+import tg_bot.modules.sql.locks_sql as sql
+from tg_bot import dispatcher, SUDO_USERS, LOGGER
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
     bot_can_delete, is_bot_admin
-from natalie_bot.modules.helper_funcs.filters import CustomFilters
-from natalie_bot.modules.log_channel import loggable
-from natalie_bot.modules.sql import users_sql
-from natalie_bot.modules.sql.urlwhitelist_sql import get_whitelisted_urls
+from tg_bot.modules.helper_funcs.filters import CustomFilters
+from tg_bot.modules.log_channel import loggable
+from tg_bot.modules.sql import users_sql
 
-ad = AlphabetDetector()
 
-LOCK_PERMISSIONS = ChatPermissions(can_send_messages=False)
 
-UNLOCK_PERMISSIONS = ChatPermissions(can_send_messages=True,
-                                     can_send_media_messages=True,
-                                     can_send_other_messages=True,
-                                     can_add_web_page_previews=True,
-                                     can_send_polls=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from tg_bot.modules.sql.urlwhitelist_sql import get_whitelisted_urls
+
+
+
+
+
+
+                                     
+                                   
+                                     
+                                     
 
 LOCK_TYPES = {'sticker': Filters.sticker,
               'animatedsticker': CustomFilters.animated_sticker,
@@ -453,10 +472,10 @@ Locking bots will stop non-admins from adding bots to the chat.
 
 __mod_name__ = "Locks & Whitelists"
 
-LOCKTYPES_HANDLER = DisableAbleCommandHandler(CMD_PREFIX, "locktypes", locktypes)
-LOCK_HANDLER = CustomCommandHandler(CMD_PREFIX, "lock", lock, filters=Filters.group)
-UNLOCK_HANDLER = CustomCommandHandler(CMD_PREFIX, "unlock", unlock, filters=Filters.group)
-LOCKED_HANDLER = CustomCommandHandler(CMD_PREFIX, "locks", list_locks, filters=Filters.group)
+LOCKTYPES_HANDLER = DisableAbleCommandHandler("locktypes", locktypes)
+LOCK_HANDLER = CustomCommandHandler("lock, filters=Filters.group)
+UNLOCK_HANDLER = CustomCommandHandler("unlock", unlock, filters=Filters.group)
+LOCKED_HANDLER = CustomCommandHandler( "locks", list_locks, filters=Filters.group)
 
 dispatcher.add_handler(LOCK_HANDLER)
 dispatcher.add_handler(UNLOCK_HANDLER)
