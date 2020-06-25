@@ -142,9 +142,9 @@ def get_whitelisted_urls(update: Update):
             return
         msg.reply_text(text.format(chat_name), parse_mode=ParseMode.HTML)
 
-ADD_URL_WHITELIST_HANDLER = CustomCommandHandler(CMD_PREFIX, "addwhitelist", add_whitelist_url, filters=Filters.group)
-RM_WHITELIST_URL_HANDLER = CustomCommandHandler(CMD_PREFIX, ["unwhitelist", "rmwhitelist"], rm_whitelist_url, filters=Filters.group)
-GET_WHITELISTED_URLS = DisableAbleCommandHandler(CMD_PREFIX, "whitelist", get_whitelisted_urls, filters=Filters.group, admin_ok=True)
+ADD_URL_WHITELIST_HANDLER = CustomCommandHandler("addwhitelist", add_whitelist_url, filters=Filters.group)
+RM_WHITELIST_URL_HANDLER = CustomCommandHandler(["unwhitelist", "rmwhitelist"], rm_whitelist_url, filters=Filters.group)
+GET_WHITELISTED_URLS = DisableAbleCommandHandler("whitelist", get_whitelisted_urls, filters=Filters.group, admin_ok=True)
 
 
 __mod_name__ = "Domain whitelists"
