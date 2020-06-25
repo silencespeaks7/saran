@@ -52,9 +52,9 @@ PERM_GROUP = 1
 REST_GROUP = 2
 
 
-class CommandHandler(tg.PrefixHandler):
-    def __init__(self, prefix, command, callback, **kwargs):
-        super().__init__(prefix, command, callback, **kwargs)
+class CommandHandler(tg.CommmamdHandler):
+    def __init__(self, command, callback, **kwargs):
+        super().__init__(command, callback, **kwargs)
 
     def check_update(self, update: Update):
         if isinstance(update, Update) and update.effective_message:
