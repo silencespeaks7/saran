@@ -20,7 +20,7 @@ from tg_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, u
 from tg_bot.modules.helper_funcs.filters import CustomFilters
 from tg_bot.modules.log_channel import loggable
 from tg_bot.modules.sql import users_sql
-from tg_bot.modules.sql.urlwhitelist_sql import get_whitelisted_urls
+
 
 ad = AlphabetDetector()
 
