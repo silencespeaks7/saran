@@ -11,7 +11,7 @@ from tg_bot.modules.disable import DisableAbleCommandHandler
 from tg_bot.modules.helper_funcs.handlers import CustomCommandHandler
 from telegram.utils.helpers import mention_html
 from tg_bot.modules.helper_funcs.chat_status import user_admin, user_not_admin
-from tg_bot.modules.sql import urlwhitelist_sql 
+
 from tg_bot.modules.log_channel import loggable
 from tg_bot.modules.helper_funcs.misc import split_message
 
