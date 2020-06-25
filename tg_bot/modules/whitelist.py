@@ -142,7 +142,7 @@ def get_whitelisted_urls(update: Update):
             return
         msg.reply_text(text.format(chat_name), parse_mode=ParseMode.HTML)
 
-*Admins only:*
+
  - /addwhitelist <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
  - /rmwhitelist  reset the warns for a user. Can also be used as a reply.
  - /getwhitelist <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to \
