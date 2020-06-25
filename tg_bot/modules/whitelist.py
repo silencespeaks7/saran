@@ -143,9 +143,15 @@ def get_whitelisted_urls(update: Update):
         msg.reply_text(text.format(chat_name), parse_mode=ParseMode.HTML)
 
 
- - /addwhitelist <userhandle>: warn a user. After 3 warns, the user will be banned from the group. Can also be used as a reply.
- - /rmwhitelist  reset the warns for a user. Can also be used as a reply.
- - /getwhitelist <keyword> <reply message>: set a warning filter on a certain keyword. If you want your keyword to \
+ - /addwhitelist <domains>: Add a domain to the whitelist. Each line is considered one domain, \
+ so using different lines will allow you to add multiple domains.
+ - /unwhitelist <domains>: Remove domains from the whitelist. Same newline logic applies here, \
+ so you can remove multiple domains at once.
+ - /rmwhitelist <domains>: Same as above.
+
+
+
+
 
 
 
