@@ -118,7 +118,7 @@ def rm_whitelist_url(update: Update):
         msg.reply_text("Tell me which domain(s) you would like to remove from the whitelist.")
 
 @run_async
-def get_whitelisted_urls(update: Update, context: CallbackContext):
+def get_whitelisted_urls(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
     chat_name = chat.title or chat.first or chat.username
