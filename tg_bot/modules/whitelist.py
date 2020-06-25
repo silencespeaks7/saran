@@ -147,7 +147,7 @@ RM_WHITELIST_URL_HANDLER = CustomCommandHandler(["unwhitelist", "rmwhitelist"], 
 GET_WHITELISTED_URLS = DisableAbleCommandHandler("whitelist", get_whitelisted_urls, filters=Filters.group, admin_ok=True)
 
 
-__mod_name__ = "Domain whitelists"
+__mod_name__ = "whitelists"
 
 
 dispatcher.add_handler(ADD_URL_WHITELIST_HANDLER)
