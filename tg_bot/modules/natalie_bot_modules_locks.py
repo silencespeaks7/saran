@@ -24,13 +24,13 @@ from tg_bot.modules.sql import users_sql
 
 
 
-LOCK_PERMISSIONS (can_send_messages=False)
 
-UNLOCK_PERMISSIONS (can_send_messages=True,
-                    can_send_media_messages=True,
-                    can_send_other_messages=True,
-                    can_add_web_page_previews=True,
-                    can_send_polls=True)
+
+
+                  
+                    
+                   
+                    
 
 LOCK_TYPES = {'sticker': Filters.sticker,
               'animatedsticker': CustomFilters.animated_sticker,
