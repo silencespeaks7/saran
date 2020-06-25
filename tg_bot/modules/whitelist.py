@@ -5,7 +5,7 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from typing import Optional, List
 
-import tldextract
+
 from natalie_bot import LOGGER, dispatcher
 from natalie_bot.modules.disable import DisableAbleCommandHandler
 from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
