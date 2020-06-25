@@ -116,7 +116,7 @@ def locktypes(update: Update, context: CallbackContext):
 @user_admin
 @bot_can_delete
 @loggable
-def lock(update: Update, context: CallbackContext) -> str:
+def lock(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
@@ -170,7 +170,7 @@ def lock(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def unlock(update: Update, context: CallbackContext) -> str:
+def unlock(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
@@ -235,7 +235,7 @@ def unlock(update: Update, context: CallbackContext) -> str:
 
 @run_async
 @user_not_admin
-def del_lockables(update: Update, context: CallbackContext):
+def del_lockables(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
     
@@ -296,7 +296,7 @@ def del_lockables(update: Update, context: CallbackContext):
 
 @run_async
 @user_not_admin
-def rest_handler(update: Update, context: CallbackContext):
+def rest_handler(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
     for restriction, filter in RESTRICTION_TYPES.items():
@@ -335,7 +335,6 @@ def build_lock_message(chat_id):
         if locks:
             res += "\n - audio = `{}`" \
                    "\n - apk = `{}`" \
-                   "\n - animatedsticker = `{}`" \
                    "\n - bots = `{}`" \
                    "\n - command = `{}`" \
                    "\n - contact = `{}`" \
@@ -345,16 +344,13 @@ def build_lock_message(chat_id):
                    "\n - game = `{}`" \
                    "\n - gif = `{}`" \
                    "\n - location = `{}`" \
-                   "\n - poll = `{}`" \
                    "\n - photo = `{}`" \
-                   "\n - rtl = `{}` " \
                    "\n - sticker = `{}`" \
                    "\n - url = `{}`" \
                    "\n - voice = `{}`" \
                    "\n - video = `{}`" \
                    "\n - videonote = `{}`".format(locks.audio,
                                              locks.apk, 
-                                             locks.animatedsticker,
                                              locks.bots, 
                                              locks.command, 
                                              locks.contact, 
@@ -363,10 +359,8 @@ def build_lock_message(chat_id):
                                              locks.forward, 
                                              locks.game,
                                              locks.gif, 
-                                             locks.location, 
-                                             locks.poll, 
+                                             locks.location,
                                              locks.photo, 
-                                             locks.rtl,
                                              locks.sticker, 
                                              locks.url, 
                                              locks.voice, 
@@ -377,7 +371,7 @@ def build_lock_message(chat_id):
 
 @run_async
 @user_admin
-def list_locks(update: Update, context: CallbackContext):
+def list_locks(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
 
     res = build_lock_message(chat.id)
