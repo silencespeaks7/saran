@@ -24,7 +24,7 @@ def add_whitelist_url(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user
     words = msg.text.split(None, 1)
-    if len(words) > 1:
+    
         text = words[1]
         to_whitelist = list(set(domain.strip() for domain in text.split("\n") if domain.strip()))
         
