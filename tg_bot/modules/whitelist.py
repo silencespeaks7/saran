@@ -18,7 +18,7 @@ from tg_bot.modules.helper_funcs.misc import split_message
 
 @run_async
 @user_admin
-@loggable
+
 def add_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     chat = update.effective_chat  # type: Optional[Chat]
@@ -61,7 +61,7 @@ def add_whitelist_url(update: Update):
 
 @run_async
 @user_admin
-@loggable
+
 def rm_whitelist_url(update: Update):
     msg = update.effective_message  # type: Optional[Message]
     user = update.effective_user # type: Optional[User]
