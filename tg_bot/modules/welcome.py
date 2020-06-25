@@ -11,7 +11,7 @@ from telegram.error import BadRequest
 from telegram.ext import MessageHandler, Filters, CommandHandler, run_async, CallbackQueryHandler, JobQueue
 from telegram.utils.helpers import mention_markdown, mention_html, escape_markdown
 
-import tg_bot.modules.sql.welcome_sql as sql
+
 from tg_bot.modules.sql.global_bans_sql import is_user_gbanned
 from tg_bot import dispatcher, OWNER_ID, DEV_USERS, SUDO_USERS, SUPPORT_USERS, TIGER_USERS, WHITELIST_USERS, LOGGER
 from tg_bot.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
