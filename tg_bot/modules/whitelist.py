@@ -6,14 +6,14 @@ from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from typing import Optional, List
 
 
-from natalie_bot import LOGGER, dispatcher
-from natalie_bot.modules.disable import DisableAbleCommandHandler
-from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
+from tg_bot import LOGGER, dispatcher
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.helper_funcs.handlers import CustomCommandHandler
 from telegram.utils.helpers import mention_html
-from natalie_bot.modules.helper_funcs.chat_status import user_admin, user_not_admin
-from natalie_bot.modules.sql import urlwhitelist_sql as sql
-from natalie_bot.modules.log_channel import loggable
-from natalie_bot.modules.helper_funcs.misc import split_message
+from tg_bot.modules.helper_funcs.chat_status import user_admin, user_not_admin
+from tg_bot.modules.sql import urlwhitelist_sql as sql
+from tg_bot.modules.log_channel import loggable
+from tg_bot.modules.helper_funcs.misc import split_message
 
 
 @run_async
