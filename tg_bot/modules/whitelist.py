@@ -5,7 +5,7 @@ from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, MessageHandler, run_async
 from typing import Optional, List
 
-import tldextract
+
 from tg_bot import LOGGER, dispatcher, CMD_PREFIX
 from tg_bot.modules.disable import DisableAbleCommandHandler
 from tg_bot.modules.helper_funcs.handlers import CustomCommandHandler
