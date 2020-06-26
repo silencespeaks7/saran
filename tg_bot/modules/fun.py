@@ -554,6 +554,18 @@ def clock(bot: Bot, update: Update):
     for i in fun_strings.CLOCK:
         message.edit_text(i)
         time.sleep(0.5)
+        
+@run_async
+def goodmorning(bot: Bot, update: Update):
+    msg = update.effective_message
+    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    reply_text(random.choice(fun_strings.GOODMORNING_STRINGS))        
+
+@run_async
+def goodnight(bot: Bot, update: Update):
+    msg = update.effective_message
+    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    reply_text(random.choice(fun_strings.GOODNIGHT_STRINGS))        
 
 
 __help__ = """
@@ -586,7 +598,8 @@ __help__ = """
  - /kan: reply a text to kannafy.
  - /changemymind: reply a text to stickerize.
  - /trumptweet: reply a text for trump tweet.
- 
+ - /goodmorning: goodmorning mssg
+ - /goodnight: goodnight mssg
 """
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
@@ -627,7 +640,9 @@ CRYMOJI_HANDLER = DisableAbleCommandHandler("crymoji", crymoji)
 CRYMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("😭", crymoji)
 BMOJI_HANDLER = DisableAbleCommandHandler("🅱️", bmoji)
 BMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("bmoji", bmoji)
-
+GOODMORNING_HANDLER = DisableAbleCommandHandler("goodmorning, goodmorning)
+GOODNIGHT_HANDLER = DisableAbleCommandHandler("goodnight, goodnight)
+                                              
 dispatcher.add_handler(POLICE_HANDLER)
 dispatcher.add_handler(MOON_HANDLER)
 dispatcher.add_handler(CLOCK_HANDLER)
@@ -665,8 +680,9 @@ dispatcher.add_handler(DEEPFRY_HANDLER)
 dispatcher.add_handler(KAN_HANDLER)
 dispatcher.add_handler(CHANGEMYMIND_HANDLER)
 dispatcher.add_handler(TRUMPTWEET_HANDLER)
-
-
+dispatcher.add_handler(GOODMORNING_HANDLER)
+dispatcher.add_handler(GOODNIGHT_HANDLER)
+                                              
 __mod_name__ = "Fun"
 __command_list__ = [
     "police",
@@ -744,4 +760,5 @@ __handlers__ = [
     KAN_HANDLER,
     CHANGEMYMIND_HANDLER,
     TRUMPTWEET_HANDLER,
-    
+    GOODMORNING_HANDLER
+    GOODNIGHT_HANDLER
