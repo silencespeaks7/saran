@@ -561,11 +561,11 @@ def goodmorning(bot: Bot, update: Update):
     reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
     reply_text(random.choice(fun_strings.GOODMORNING_STRINGS))        
 
-@run_async
-def goodnight(bot: Bot, update: Update):
-    msg = update.effective_message
-    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
-    reply_text(random.choice(fun_strings.GOODNIGHT_STRINGS))        
+
+
+
+
+
 
 
 __help__ = """
@@ -599,7 +599,7 @@ __help__ = """
  - /changemymind: reply a text to stickerize.
  - /trumptweet: reply a text for trump tweet.
  - /goodmorning: goodmorning mssg
- - /goodnight: goodnight mssg
+
 """
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
@@ -641,7 +641,7 @@ CRYMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("😭", crymoji)
 BMOJI_HANDLER = DisableAbleCommandHandler("🅱️", bmoji)
 BMOJI_ALIAS_HANDLER = DisableAbleCommandHandler("bmoji", bmoji)
 GOODMORNING_HANDLER = DisableAbleCommandHandler("goodmorning", goodmorning)
-GOODNIGHT_HANDLER = DisableAbleCommandHandler("goodnight", goodnight)
+
                                               
 dispatcher.add_handler(POLICE_HANDLER)
 dispatcher.add_handler(MOON_HANDLER)
@@ -681,7 +681,7 @@ dispatcher.add_handler(KAN_HANDLER)
 dispatcher.add_handler(CHANGEMYMIND_HANDLER)
 dispatcher.add_handler(TRUMPTWEET_HANDLER)
 dispatcher.add_handler(GOODMORNING_HANDLER)
-dispatcher.add_handler(GOODNIGHT_HANDLER)
+
                                               
 __mod_name__ = "Fun"
 __command_list__ = [
@@ -761,4 +761,4 @@ __command_list__ = [
     CHANGEMYMIND_HANDLER,
     TRUMPTWEET_HANDLER,
     GOODMORNING_HANDLER,
-    GOODNIGHT_HANDLER,
+    
