@@ -125,16 +125,6 @@ def kan(bot: Bot, update: Update):
         os.remove("temp.webp")
 
 
-@run_async
-def eightball(bot: Bot, update: Update):
-    msg = update.effective_message
-    target = '8ball'
-    with open("temp.png", "wb") as f:
-        f.write(requests.get(nekos.img(target)).content)
-    img = Image.open("temp.png")
-    img.save("temp.webp", "webp")
-    msg.reply_document(open("temp.webp", "rb"))
-    os.remove("temp.webp")
 
 
 @run_async
@@ -596,7 +586,7 @@ __help__ = """
  - /kan: reply a text to kannafy.
  - /changemymind: reply a text to stickerize.
  - /trumptweet: reply a text for trump tweet.
- - /eightball: shakes 8ball.
+ 
 """
 OWO_HANDLER = DisableAbleCommandHandler("owo", owo, admin_ok=True)
 STRETCH_HANDLER = DisableAbleCommandHandler("stretch", stretch)
@@ -609,7 +599,6 @@ SHOUT_HANDLER = DisableAbleCommandHandler("shout", shout, pass_args=True)
 KAN_HANDLER = DisableAbleCommandHandler("kan", kan)
 CHANGEMYMIND_HANDLER = DisableAbleCommandHandler("changemymind", changemymind)
 TRUMPTWEET_HANDLER = DisableAbleCommandHandler("trumptweet", trumptweet)
-EIGHTBALL_HANDLER = DisableAbleCommandHandler("eightball", eightball)
 POLICE_HANDLER = DisableAbleCommandHandler(["police"], police)
 MOON_HANDLER = DisableAbleCommandHandler(["moon"], moon)
 CLOCK_HANDLER = DisableAbleCommandHandler(["clock"], clock)
@@ -676,7 +665,7 @@ dispatcher.add_handler(DEEPFRY_HANDLER)
 dispatcher.add_handler(KAN_HANDLER)
 dispatcher.add_handler(CHANGEMYMIND_HANDLER)
 dispatcher.add_handler(TRUMPTWEET_HANDLER)
-dispatcher.add_handler(EIGHTBALL_HANDLER)
+
 
 __mod_name__ = "Fun"
 __command_list__ = [
@@ -716,7 +705,7 @@ __command_list__ = [
     "kan",
     "changemymind",
     "trumptweet",
-    "eightball"]
+    
 __handlers__ = [
     RUNS_HANDLER,
     SLAP_HANDLER,
@@ -755,4 +744,4 @@ __handlers__ = [
     KAN_HANDLER,
     CHANGEMYMIND_HANDLER,
     TRUMPTWEET_HANDLER,
-    EIGHTBALL_HANDLER]
+    
