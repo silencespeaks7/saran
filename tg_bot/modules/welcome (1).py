@@ -1,5 +1,5 @@
 from html import escape
-import time, spamwatch
+
 import re
 import threading
 from typing import Optional, List
