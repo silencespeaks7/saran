@@ -722,7 +722,7 @@ __command_list__ = [
     "changemymind",
     "trumptweet",
     
-__handlers__ = [
+
     RUNS_HANDLER,
     SLAP_HANDLER,
     ROLL_HANDLER,
