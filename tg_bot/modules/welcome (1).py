@@ -4,25 +4,25 @@ import re
 import threading
 from typing import Optional, List
 
-from telegram import Message, Chat, Update, Bot, User, CallbackQuery, ChatPermissions
+from telegram import Message, Chat, Update, Bot, User, CallbackQuery
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
-from telegram.ext import MessageHandler, Filters, CommandHandler, run_async, CallbackQueryHandler, CallbackContext
+from telegram.ext import MessageHandler, Filters, CommandHandler, run_async, CallbackQueryHandler
 from telegram.utils.helpers import mention_html
 
 import natalie_bot.modules.sql.welcome_sql as sql
-from natalie_bot.modules.sql.global_bans_sql import get_gbanned_user
-from natalie_bot import dispatcher, OWNER_ID, LOGGER, CMD_PREFIX, SPAMWATCH_TOKEN
-from natalie_bot.modules.helper_funcs.handlers import CustomCommandHandler
-from natalie_bot.modules.helper_funcs.chat_status import user_admin, can_delete, is_user_ban_protected, is_user_admin, can_restrict, can_message
-from natalie_bot.modules.helper_funcs.misc import build_keyboard, revert_buttons
-from natalie_bot.modules.helper_funcs.msg_types import get_welcome_type
-from natalie_bot.modules.helper_funcs.string_handling import markdown_parser, \
+from tg_bot.modules.sql.global_bans_sql import get_gbanned_user
+from tg_bot import dispatcher, OWNER_ID, LOGGER
+from tg_bot.modules.helper_funcs.handlers import CustomCommandHandler
+from tg_bot.modules.helper_funcs.chat_status import user_admin, can_delete, is_user_ban_protected, is_user_admin, can_restrict, can_message
+from tg_bot.modules.helper_funcs.misc import build_keyboard, revert_buttons
+from tg_bot.modules.helper_funcs.msg_types import get_welcome_type
+from tg_bot.modules.helper_funcs.string_handling import markdown_parser, \
     escape_invalid_curly_brackets, markdown_to_html
 from natalie_bot.modules.log_channel import loggable
 
 VALID_WELCOME_FORMATTERS = ['first', 'last', 'fullname', 'username', 'id', 'count', 'chatname', 'mention']
-client = spamwatch.Client(SPAMWATCH_TOKEN)
+
 
 ENUM_FUNC_MAP = {
     sql.Types.TEXT.value: dispatcher.bot.send_message,
@@ -35,25 +35,9 @@ ENUM_FUNC_MAP = {
     sql.Types.VIDEO.value: dispatcher.bot.send_video
 }
 
-WELCOME_PERMISSIONS_SOFT = ChatPermissions(can_send_messages=True, 
-                                     can_send_media_messages=False, 
-                                     can_send_other_messages=False, 
-                                     can_add_web_page_previews=False)
 
-WELCOME_PERMISSIONS_STRONG = ChatPermissions(can_send_messages=False, 
-                                     can_send_media_messages=False, 
-                                     can_send_other_messages=False, 
-                                     can_add_web_page_previews=False)
-
-WELCOME_PERMISSIONS_AGGRESSIVE = ChatPermissions(can_send_messages=False, 
-                                     can_send_media_messages=False, 
-                                     can_send_other_messages=False, 
-                                     can_add_web_page_previews=False)
-
-USER_PERMISSIONS_UNMUTE = ChatPermissions(can_send_messages=True, 
-                                    can_send_media_messages=True, 
-                                    can_send_other_messages=True, 
-                                    can_add_web_page_previews=True)
+                                                        
+                                  
 # do not async
 @can_message
 def send(update, context, message, keyboard, backup_message, caption=None, type=None):
@@ -135,7 +119,7 @@ def format_welcome_message(welc_caption, first_name, chat, new_mem):
 @run_async
 @can_message
 @loggable
-def new_member(update: Update, context: CallbackContext):
+def new_member(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message # type: Optional[Message]
@@ -318,7 +302,7 @@ def aggr_mute_check(bot: Bot, chat: Chat, message_id, user_id):
     chat.unban_member(user_id)
 
 @run_async
-def left_member(update: Update, context: CallbackContext):
+def left_member(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     should_goodbye, cust_goodbye, goodbye_type = sql.get_gdbye_pref(chat.id)
     cust_goodbye = markdown_to_html(cust_goodbye)
@@ -383,7 +367,7 @@ def left_member(update: Update, context: CallbackContext):
 
 @run_async
 @user_admin
-def welcome(update: Update, context: CallbackContext):
+def welcome(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     args = update.effective_message.text.split(" ")
     args_option = ""
@@ -492,7 +476,7 @@ def goodbye(update: Update, context: CallbackContext):
 @run_async
 @user_admin
 @loggable
-def set_welcome(update: Update, context: CallbackContext) -> str:
+def set_welcome(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
@@ -516,7 +500,7 @@ def set_welcome(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def reset_welcome(update: Update, context: CallbackContext) -> str:
+def reset_welcome(update)-> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     sql.set_custom_welcome(chat.id, None, sql.DEFAULT_WELCOME, sql.Types.TEXT)
@@ -531,7 +515,7 @@ def reset_welcome(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def set_goodbye(update: Update, context: CallbackContext) -> str:
+def set_goodbye(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message  # type: Optional[Message]
@@ -553,7 +537,7 @@ def set_goodbye(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def reset_goodbye(update: Update, context: CallbackContext) -> str:
+def reset_goodbye(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     sql.set_custom_gdbye(chat.id, sql.DEFAULT_GOODBYE, sql.Types.TEXT)
@@ -567,7 +551,7 @@ def reset_goodbye(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def welcomemute(update: Update, context: CallbackContext) -> str:
+def welcomemute(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     msg = update.effective_message # type: Optional[Message]
@@ -625,7 +609,7 @@ def welcomemute(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def clean_welcome(update: Update, context: CallbackContext) -> str:
+def clean_welcome(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     args = update.effective_message.text.split(" ")
@@ -666,7 +650,7 @@ def clean_welcome(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def del_joined(update: Update, context: CallbackContext) -> str:
+def del_joined(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     args = update.effective_message.text.split(" ")
@@ -707,7 +691,7 @@ def del_joined(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @loggable
-def join_event_log(update: Update, context: CallbackContext) -> str:
+def join_event_log(update: Update) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     args = update.effective_message.text.split(" ")
@@ -746,7 +730,7 @@ def join_event_log(update: Update, context: CallbackContext) -> str:
         return ""
 
 @run_async
-def delete_join(update: Update, context: CallbackContext):
+def delete_join(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     join = update.effective_message.new_chat_members
     if can_delete(chat, context.bot.id):
@@ -759,7 +743,7 @@ def delete_join(update: Update, context: CallbackContext):
             
 @run_async
 @can_restrict
-def user_button(update: Update, context: CallbackContext):
+def user_button(update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
     query = update.callback_query  # type: Optional[CallbackQuery]
@@ -899,17 +883,17 @@ __mod_name__ = "Greetings"
 
 NEW_MEM_HANDLER = MessageHandler(Filters.status_update.new_chat_members, new_member)
 LEFT_MEM_HANDLER = MessageHandler(Filters.status_update.left_chat_member, left_member)
-WELC_PREF_HANDLER = CustomCommandHandler(CMD_PREFIX, "welcome", welcome, filters=Filters.group)
+WELC_PREF_HANDLER = CustomCommandHandler("welcome", welcome, filters=Filters.group)
 GOODBYE_PREF_HANDLER = CustomCommandHandler(CMD_PREFIX, "goodbye", goodbye, filters=Filters.group)
-SET_WELCOME = CustomCommandHandler(CMD_PREFIX, "setwelcome", set_welcome, filters=Filters.group)
-SET_GOODBYE = CustomCommandHandler(CMD_PREFIX, "setgoodbye", set_goodbye, filters=Filters.group)
-RESET_WELCOME = CustomCommandHandler(CMD_PREFIX, "resetwelcome", reset_welcome, filters=Filters.group)
-RESET_GOODBYE = CustomCommandHandler(CMD_PREFIX, "resetgoodbye", reset_goodbye, filters=Filters.group)
-CLEAN_WELCOME = CustomCommandHandler(CMD_PREFIX, "cleanwelcome", clean_welcome, filters=Filters.group)
-WELCOMEMUTE_HANDLER = CustomCommandHandler(CMD_PREFIX, "welcomemute", welcomemute, filters=Filters.group)
-DEL_JOINED_HANDLER = CustomCommandHandler(CMD_PREFIX, ["rmjoin", "cleanservice"], del_joined, filters=Filters.group)
-JOIN_EVENT_HANDLER = CustomCommandHandler(CMD_PREFIX, "joinlog", join_event_log, filters=Filters.group)
-WELCOME_HELP = CustomCommandHandler(CMD_PREFIX, "welcomehelp", welcome_help)
+SET_WELCOME = CustomCommandHandler("setwelcome", set_welcome, filters=Filters.group)
+SET_GOODBYE = CustomCommandHandler("setgoodbye", set_goodbye, filters=Filters.group)
+RESET_WELCOME = CustomCommandHandler("resetwelcome", reset_welcome, filters=Filters.group)
+RESET_GOODBYE = CustomCommandHandler("resetgoodbye", reset_goodbye, filters=Filters.group)
+CLEAN_WELCOME = CustomCommandHandler("cleanwelcome", clean_welcome, filters=Filters.group)
+WELCOMEMUTE_HANDLER = CustomCommandHandler("welcomemute", welcomemute, filters=Filters.group)
+DEL_JOINED_HANDLER = CustomCommandHandler(["rmjoin", "cleanservice"], del_joined, filters=Filters.group)
+JOIN_EVENT_HANDLER = CustomCommandHandler("joinlog", join_event_log, filters=Filters.group)
+WELCOME_HELP = CustomCommandHandler("welcomehelp", welcome_help)
 BUTTON_VERIFY_HANDLER = CallbackQueryHandler(user_button, pattern=r"user_join_")
 
 dispatcher.add_handler(NEW_MEM_HANDLER)
