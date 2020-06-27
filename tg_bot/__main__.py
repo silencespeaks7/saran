@@ -530,5 +530,5 @@ def main():
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: %s", str(ALL_MODULES))
-    telethn.start(bot_token=TOKEN)
+start(bot_token=TOKEN)
     main()
