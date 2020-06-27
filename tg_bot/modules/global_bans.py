@@ -362,7 +362,7 @@ def gbanlist(bot: Bot, update: Update):
             caption="Here is the list of currently gbanned users.")
 
 
-def check_and_ban(update, user_id, should_message=True):
+ check_and_ban(update, user_id, should_message=True):
     chat = update.effective_chat
     message = update.effective_message
     try:
