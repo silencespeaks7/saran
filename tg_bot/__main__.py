@@ -531,4 +531,4 @@ def main():
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: %s", str(ALL_MODULES))
 start(bot_token=TOKEN)
-    main()
+   
