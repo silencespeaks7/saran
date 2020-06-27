@@ -1,19 +1,23 @@
 import html
-from typing import Optional, List
+import random
+import re
+import time
+from typing import List
+from functools import partial
 
-from telegram import Message, Chat, Update, Bot, User
-from telegram import ParseMode, InlineKeyboardMarkup
+from telegram import Update, Bot, CallbackQuery
+from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.error import BadRequest
-from telegram.ext import MessageHandler, Filters, CommandHandler, run_async
+from telegram.ext import MessageHandler, Filters, CommandHandler, run_async, CallbackQueryHandler, JobQueue
 from telegram.utils.helpers import mention_markdown, mention_html, escape_markdown
 
 import tg_bot.modules.sql.welcome_sql as sql
-from tg_bot import dispatcher, OWNER_ID, LOGGER
-from tg_bot.modules.helper_funcs.chat_status import user_admin, can_delete
+from tg_bot import dispatcher, OWNER_ID, DEV_USERS, SUDO_USERS, SUPPORT_USERS, TIGER_USERS, WHITELIST_USERS, LOGGER
+from tg_bot.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected
 from tg_bot.modules.helper_funcs.misc import build_keyboard, revert_buttons
 from tg_bot.modules.helper_funcs.msg_types import get_welcome_type
-from tg_bot.modules.helper_funcs.string_handling import markdown_parser, \
-    escape_invalid_curly_brackets
+from tg_bot.modules.helper_funcs.string_handling import (markdown_parser,escape_invalid_curly_brackets)
+                                                         
 from tg_bot.modules.log_channel import loggable
 
 VALID_WELCOME_FORMATTERS = ['first', 'last', 'fullname', 'username', 'id', 'count', 'chatname', 'mention']
