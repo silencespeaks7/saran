@@ -9,12 +9,12 @@ from telegram.error import BadRequest, TelegramError
 from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-import lynda.modules.sql.global_bans_sql as sql
-from lynda import dispatcher, OWNER_ID, SUDO_USERS, DEV_USERS, SUPPORT_USERS, SARDEGNA_USERS, WHITELIST_USERS, STRICT_GBAN, GBAN_LOGS, spam_watch
-from lynda.modules.helper_funcs.chat_status import user_admin, is_user_admin, support_plus
-from lynda.modules.helper_funcs.extraction import extract_user, extract_user_and_text
-from lynda.modules.helper_funcs.misc import send_to_list
-from lynda.modules.sql.users_sql import get_all_chats
+import tg_bot.modules.sql.global_bans_sql as sql
+from tg_bot import dispatcher, OWNER_ID, SUDO_USERS, DEV_USERS, SUPPORT_USERS, WHITELIST_USERS, STRICT_GBAN, GBAN_LOGS, spam_watch
+from tg_bot.modules.helper_funcs.chat_status import user_admin, is_user_admin, support_plus
+from tg_bot.modules.helper_funcs.extraction import extract_user, extract_user_and_text
+from tg_bot.modules.helper_funcs.misc import send_to_list
+from tg_bot.modules.sql.users_sql import get_all_chats
 
 GBAN_ENFORCE_GROUP = 6
 
@@ -385,7 +385,7 @@ def check_and_ban(update, user_id, should_message=True):
             update.effective_message.reply_text(
                 "Alert: This user is globally banned.\n"
                 "*bans them from here*.\n"
-                "Appeal chat: @YorktownEagleUnion")
+                
 
 
 @run_async
@@ -468,7 +468,7 @@ def __chat_settings__(chat_id, _user_id):
 __help__ = """
 *Admin only:*
  - /gbanstat
-Note: You can appeal gbans or ask gbans at @LyndaEagleSupport
+
 Lynda also integrates @Spamwatch API into gbans to remove Spammers as much as possible from your chatroom!
 *What is SpamWatch?*
 SpamWatch maintains a large constantly updated ban-list of spambots, trolls, bitcoin spammers and unsavoury characters[.](https://telegra.ph/file/ac12a2c6b831dd005015b.jpg)
