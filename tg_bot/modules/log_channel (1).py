@@ -11,9 +11,9 @@ if is_module_loaded(FILENAME):
     from telegram.ext import CommandHandler, run_async, JobQueue
     from telegram.utils.helpers import escape_markdown
 
-    from SaitamaRobot import dispatcher, LOGGER, GBAN_LOGS
-    from SaitamaRobot.modules.helper_funcs.chat_status import user_admin
-    from SaitamaRobot.modules.sql import log_channel_sql as sql
+    from tg_bot import dispatcher, LOGGER, GBAN_LOGS
+    from tg_bot.modules.helper_funcs.chat_status import user_admin
+    from tg_bot.modules.sql import log_channel_sql as sql
 
 
     def loggable(func):
