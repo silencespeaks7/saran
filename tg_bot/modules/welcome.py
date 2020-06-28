@@ -10,23 +10,23 @@ from telegram.error import BadRequest
 from telegram.ext import MessageHandler, Filters, CommandHandler, run_async, CallbackQueryHandler
 from telegram.utils.helpers import mention_markdown, mention_html, escape_markdown
 
-import emilia.modules.sql.welcome_sql as sql
-from emilia import dispatcher, OWNER_ID, LOGGER, spamcheck, IS_DEBUG
-try:
-	from emilia import SPAMWATCH_TOKEN
-except:
-	pass
-from emilia.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, bot_can_restrict
-from emilia.modules.helper_funcs.misc import build_keyboard_parser, revert_buttons
-from emilia.modules.helper_funcs.msg_types import get_welcome_type
-from emilia.modules.helper_funcs.string_handling import markdown_parser, \
-	escape_invalid_curly_brackets, extract_time, make_time
-from emilia.modules.helper_funcs.welcome_timeout import welcome_timeout
-from emilia.modules.log_channel import loggable
+import tg_bot.modules.sql.welcome_sql as sql
+from tg_bot import dispatcher, OWNER_ID, LOGGER
 
-import emilia.modules.sql.feds_sql as fedsql
-from emilia.modules.languages import tl
-from emilia.modules.helper_funcs.alternate import send_message, leave_chat
+
+
+	pass
+from tg_bot.modules.helper_funcs.chat_status import user_admin, is_user_ban_protected, bot_can_restrict
+from tg_bot.modules.helper_funcs.misc import build_keyboard_parser, revert_buttons
+from tg_bot.modules.helper_funcs.msg_types import get_welcome_type
+from tg_bot.modules.helper_funcs.string_handling import markdown_parser, \
+	escape_invalid_curly_brackets, extract_time, make_time
+from tg_bot.modules.helper_funcs.welcome_timeout import welcome_timeout
+from tg_bot.modules.log_channel import loggable
+
+import tg_bot.modules.sql.feds_sql as fedsql
+from tg_bot.modules.languages import tl
+from tg_bot.modules.helper_funcs.alternate import send_message, leave_chat
 
 
 OWNER_SPECIAL = False
