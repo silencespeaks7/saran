@@ -20,7 +20,7 @@ if is_module_loaded(FILENAME):
         @wraps(func)
         def log_action(bot: Bot, update: Update, *args, **kwargs):
 
-            result = func(bot, update, *args, **kwargs)
+            
             chat = update.effective_chat
             message = update.effective_message
 
