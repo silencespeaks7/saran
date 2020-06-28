@@ -54,10 +54,8 @@ And the following:
 
 KIGYO_IMG = "https://telegra.ph/file/ab9a089aaec37716c913f.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
-Sara is hosted on one of Kaizoku's Servers and doesn't require any donations as of now but \
-You can donate to the original writer of the Base code, Paul
-There are two ways of supporting him; [PayPal](paypal.me/PaulSonOfLars), or [Monzo](monzo.me/paulnionvestergaardlarsen)."""
+
+
 
 IMPORTED = {}
 MIGRATEABLE = []
