@@ -28,9 +28,9 @@ from telegram import Update, Bot
 from telegram.ext import run_async
 from telegram.utils.helpers import escape_markdown
 
-from hitsuki import dispatcher
-from hitsuki.modules.disable import DisableAbleCommandHandler
-from hitsuki.modules.tr_engine.strings import tld
+from tg_bot import dispatcher
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.tr_engine.strings import tld
 
 
 @run_async
@@ -251,7 +251,7 @@ def makepack_internal(msg, user, png_sticker, emoji, bot, packname, packnum,
             extra_version = " " + str(packnum)
         success = bot.create_new_sticker_set(user.id,
                                              packname,
-                                             f"{name}'s Hitsuki Pack" +
+                                             f"{name}'s Sara😉 pack" +
                                              extra_version,
                                              png_sticker=png_sticker,
                                              emojis=emoji)
